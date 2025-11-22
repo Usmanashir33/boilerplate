@@ -25,10 +25,10 @@ def upload_user_image(instance,filename):
 
 class User(AbstractUser):
     id = models.UUIDField(_("id"),primary_key = True,unique=True,default = uuid.uuid4,editable=False)
-    
     username = models.CharField(max_length=100)
     middle_name = models.CharField(_("middle Name "), max_length=100,blank=True)
-    phone_number = models.CharField(_("phone_number"), max_length=14,blank=True,unique=True)
+    # phone_number = models.CharField(_("phone_number"), max_length=14,blank=True,unique=True)
+    phone_number = models.CharField(_("phone_number"), max_length=14,blank=True)
     email =models.EmailField(_("Email"),unique=True,max_length=254)
     picture= models.ImageField(_("user pic"), upload_to= upload_user_image,default='default.png')
     
@@ -91,9 +91,6 @@ class User(AbstractUser):
             if not User.objects.filter(refarrel_code=code).exists():
                 return code
 
-
-
-
 MEANS_OF_IDENTIFICATION = (
     ("national_id","National Id Card"),
     ("passport","International Passport"),
@@ -137,9 +134,6 @@ class KYC(models.Model):
     def __str__(self):
         return f"kyc-{self.first_name}"
 
-    # def get_absolute_url(self):
-    #     return reverse("KYC_detail", kwargs={"pk": self.pk})
-
 class UserPins(models.Model):
     user= models.OneToOneField(User, on_delete=models.CASCADE,related_name='userpins')
     pins = models.CharField(_("Pins"), max_length=255 ,blank=True)
@@ -153,6 +147,9 @@ class UserPins(models.Model):
     def checkPin(self,row_pin):
         return check_password(str(row_pin),self.pins)
 
+    def show_pins(self):
+         return f"{self.pins[:6]}*****{self.pins[-6:]}"
+     
     def __str__(self):
        return f"{self.user.username} User Pin"
 
@@ -168,18 +165,22 @@ class VerificationCode(models.Model):
     updated = models.DateTimeField(auto_now=True,)
     
     # this handles payment pin 
-    def setCode(self,row_code):
-        self.pins = make_password(str(row_code))
+    def setCode(self,row_code):  
+        self.code = make_password(str(row_code))
         self.save()
         
     def checkCode(self,row_code):
         return check_password(str(row_code),self.code)
+    
+    def show_code(self):
+        return f"{self.code[:6]}****{self.code[-6:]}"
+
 
     def __str__(self):
-       return f"{self.user.username} User Code"
+       return f"{self.show_code} User Code"
 
     class Meta:
         db_table = ''
         managed = True
         verbose_name = 'UserCode'
-        verbose_name_plural = 'UserCode'
+        verbose_name_plural = 'UserCode' 

@@ -34,7 +34,7 @@ def main():
 
     old_name = sys.argv[1]
     # 🔥 force lowercase backproject name
-    new_name = sys.argv[2].lower()
+    new_name = sys.argv[2]
 
     print(f"\n🔄 Renaming Django backproject: {old_name} → {new_name}\n")
 
