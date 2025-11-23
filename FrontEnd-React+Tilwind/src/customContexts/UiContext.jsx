@@ -1,5 +1,5 @@
 import { createContext, useEffect, useRef, useState } from "react";
-import defaultSound from "../assets/sounds/defaultSound.mp3";
+// import defaultSound from "../assets/sounds/defaultSound.mp3";
     
     
 export const uiContext = createContext();
@@ -11,7 +11,7 @@ const UiContextProvider = ({children}) => {
     const [success,setSuccess] = useState('')
     const sideBarRef = useRef();
 
-    const playSound = (alert=defaultSound) => {
+    const playSound = (alert='defaultSound') => {
         let sound = new Audio(alert)
         sound.play()
     }

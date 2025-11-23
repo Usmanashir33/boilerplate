@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState, } from "react";
 import { liveContext } from "../customContexts/LiveContext";
-import NotifCard from "./NotificationCard";
-import {LucideTrash2, Trash, TriangleDashedIcon  } from "lucide-react";
+import {LucideTrash2, Trash } from "lucide-react";
 import { uiContext } from "../customContexts/UiContext";
 
 const Rightbar = () => {
@@ -9,10 +8,10 @@ const Rightbar = () => {
     const [deleteAll,setShowDeleteAll] = useState(false);
     
     useEffect(() => {
-      const unread = notifications.filter(notification => notification.viewed === false);
-      if (unread.length > 0){ // read un read ones
-        sendRequest('/account/read_notif/','GET','')
-    }
+    //   const unread = notifications.filter(notification => notification.viewed === false);
+    //   if (unread.length > 0){ // read un read ones
+    //     sendRequest('/account/read_notif/','GET','')
+    // }
   },[])
     
     return ( 

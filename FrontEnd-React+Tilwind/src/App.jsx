@@ -8,9 +8,6 @@ import UiContextProvider from './customContexts/UiContext';
 import AuthContextProvider from './customContexts/AuthContext';
 import LiveContextProvider from './customContexts/LiveContext.jsx';
 import Floaters from './components/Floaters.jsx';
-import ProtectStaff from './componenetProtecters/ProtectStaffRoute.jsx';
-import StaffPage from './components/AAStaff/StaffPage.jsx';
-import StaffContextProvider from './customContexts/StaffContext.jsx';
 
 function App() {
   
@@ -25,29 +22,17 @@ function App() {
               <Floaters/>
               
               <Routes>
-                <Route 
+
+                {/* <Route 
                 exact path='/'
                 element ={
                   <Navigate to = "/help-center/" replace/>
-                }/>
+                }/> */}
                   
                 {/* For Dashboard route with protection */}
                 {/* for staff user  */}
 
-                <Route 
-                  exact path='/staffusers/*' 
-                  element={
-                    <StaffContextProvider>
-                      {/* <ProtectedRoute> */}
-                        <ProtectStaff>
-
-                          <StaffPage/>
-                          
-                        </ProtectStaff>
-                      {/* </ProtectedRoute> */}
-                    </StaffContextProvider>
-                  } 
-                />
+               
                 <Route 
                   path='/dashbord/*' 
                   element={
